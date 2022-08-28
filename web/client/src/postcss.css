@@ -1,0 +1,174 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-slate-50;
+  }
+
+  button {
+    @apply p-2 outline-none rounded shadow;
+    @apply flex flex-row justify-center items-center;
+    @apply text-center text-sm font-medium;
+    @apply bg-slate-800 text-white !important;
+  }
+  button:enabled:not(.selected):hover {
+    @apply bg-slate-900 !important;
+  }
+  button:disabled {
+    @apply cursor-not-allowed;
+    @apply bg-slate-600 !important;
+  }
+  button:disabled:not(.selected):hover {
+    @apply bg-slate-700 !important;
+  }
+
+  button.btn-rose {
+    @apply bg-rose-500 text-white !important;
+  }
+  button.btn-rose:enabled:not(.selected):hover {
+    @apply bg-rose-600 !important;
+  }
+  button.btn-rose:disabled {
+    @apply bg-rose-300 !important;
+  }
+  button.btn-rose:disabled:not(.selected):hover {
+    @apply bg-rose-400 !important;
+  }
+
+  button.btn-green {
+    @apply bg-green-500 text-white !important;
+  }
+  button.btn-green:enabled:not(.selected):hover {
+    @apply bg-green-600 !important;
+  }
+  button.btn-green:disabled {
+    @apply bg-green-300 !important;
+  }
+  button.btn-green:disabled:not(.selected):hover {
+    @apply bg-green-400 !important;
+  }
+
+  button.btn-indigo {
+    @apply bg-indigo-500 text-white !important;
+  }
+  button.btn-indigo:enabled:not(.selected):hover {
+    @apply bg-indigo-600 !important;
+  }
+  button.btn-indigo:disabled {
+    @apply bg-indigo-300 !important;
+  }
+  button.btn-indigo:disabled:not(.selected):hover {
+    @apply bg-indigo-400 !important;
+  }
+
+  th {
+    @apply whitespace-nowrap;
+    @apply p-2 border border-slate-800;
+    @apply text-center text-sm font-medium;
+  }
+  td {
+    @apply whitespace-nowrap;
+    @apply p-2 border border-slate-800;
+    @apply text-center text-sm font-normal;
+  }
+  
+  input[type=text],
+  input[type=email],
+  input[type=number],
+  input[type=password],
+  input[type=datetime-local],
+  input[type=date],
+  textarea {
+    @apply w-full p-1 appearance-none outline-none;
+    @apply border border-slate-400 bg-white;
+    @apply text-left text-base font-normal text-black placeholder-slate-400;
+  }
+
+  div.task {
+    @apply m-0.5 py-0.5 px-2 cursor-pointer;
+    @apply border-y border-slate-100;
+  }
+  div.task:hover, div.task:focus-within {
+    @apply bg-white;
+    @apply border-y border-slate-200;
+  }
+
+  input[type=text].task {
+    @apply bg-slate-50 border-none text-sm;
+  } 
+  input[type=text].task:focus {
+    @apply bg-white;
+  }
+  div.task:hover input[type=text].task {
+    @apply bg-white;
+  }
+
+  select {
+    @apply w-full p-1 outline-none;
+    @apply border border-slate-400 bg-white;
+    @apply text-left text-base font-normal text-black placeholder-slate-400;
+  }
+  
+  input[type=checkbox] {
+    @apply p-1 border-none;
+    @apply bg-white text-black placeholder-slate-400 ;
+    @apply outline-none;
+  }
+  
+  input[type=text]:disabled,
+  input[type=email]:disabled,
+  input[type=number]:disabled,
+  input[type=password]:disabled,
+  input[type=datetime-local]:disabled,
+  input[type=date]:disabled,
+  select:disabled,
+  textarea:disabled {
+    @apply opacity-25;
+  }
+  
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=number]:focus,
+  input[type=password]:focus,
+  input[type=datetime-local]:focus,
+  input[type=date]:focus,
+  select:focus,
+  textarea:focus {
+    @apply outline-none;
+    @apply border border-slate-800 bg-white placeholder-slate-400;
+  }
+
+  input[type=text]:read-only,
+  input[type=email]:read-only,
+  input[type=number]:read-only,
+  input[type=password]:read-only,
+  input[type=datetime-local]:read-only,
+  input[type=date]:read-only,
+  select:read-only,
+  textarea:read-only {
+    @apply text-slate-400;
+  }
+
+  select:read-only {
+    @apply text-black;
+  }
+
+  /* Hide arrows for input type=number */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button { /* Chrome, Safari, Edge, Opera */
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] { /* Firefox */
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .inter {
+    font-family: 'Inter', sans-serif;
+  }
+}
