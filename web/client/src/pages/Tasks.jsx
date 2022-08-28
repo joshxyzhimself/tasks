@@ -71,7 +71,7 @@ export const Tasks = () => {
   const [focused_index, set_focused_index] = React.useState(null);
 
   /**
-   * @type {React.MutableRefObject<HTMLElement[]>}
+   * @type {React.MutableRefObject<HTMLInputElement[]>}
    */
   const references = React.useRef([]);
 
@@ -205,7 +205,7 @@ export const Tasks = () => {
                         case 'Escape': {
                           e.preventDefault();
                           references.current[task_index].blur();
-                          break;
+                          return;
                         }
                         case '`': {
                           e.preventDefault();
@@ -217,7 +217,7 @@ export const Tasks = () => {
                           const updated_tasks = tasks.slice();
                           updated_tasks[task_index] = updated_task;
                           set_tasks(updated_tasks);
-                          break;
+                          return;
                         }
                         case 'Backspace': {
                           if (task.name === '') {
@@ -226,6 +226,7 @@ export const Tasks = () => {
                             updated_tasks.splice(task_index, 1);
                             set_tasks(updated_tasks);
                             set_selected_index(task_index - 1);
+                            return;
                           }
                           break;
                         }
@@ -236,6 +237,7 @@ export const Tasks = () => {
                               const updated_tasks = tasks.slice();
                               updated_tasks.splice(task_index + 1, 1);
                               set_tasks(updated_tasks);
+                              return;
                             }
                           }
                           break;
@@ -247,6 +249,7 @@ export const Tasks = () => {
                             const updated_tasks = tasks.slice();
                             updated_tasks[task_index] = updated_task;
                             set_tasks(updated_tasks);
+                            return;
                           } else {
                             if (task_index > 0 && task.depth <= tasks[task_index - 1].depth) {
                               e.preventDefault();
@@ -254,6 +257,7 @@ export const Tasks = () => {
                               const updated_tasks = tasks.slice();
                               updated_tasks[task_index] = updated_task;
                               set_tasks(updated_tasks);
+                              return;
                             }
                           }
                           e.preventDefault();
@@ -275,7 +279,7 @@ export const Tasks = () => {
                           updated_tasks.push(...tasks.slice(task_index + 1));
                           set_tasks(updated_tasks);
                           set_selected_index(task_index + 1);
-                          break;
+                          return;
                         }
                         case 'ArrowUp': {
                           if (e.shiftKey === true) {
@@ -289,11 +293,13 @@ export const Tasks = () => {
                                 updated_tasks[task_index - 1] = current;
                                 set_tasks(updated_tasks);
                                 set_selected_index(task_index - 1);
+                                return;
                               }
                             }
                           } else {
                             e.preventDefault();
                             set_selected_index(Math.max(0, task_index - 1));
+                            return;
                           }
                           break;
                         }
@@ -309,13 +315,58 @@ export const Tasks = () => {
                                 updated_tasks[task_index + 1] = current;
                                 set_tasks(updated_tasks);
                                 set_selected_index(task_index + 1);
+                                return;
                               }
                             }
                           } else {
                             e.preventDefault();
                             set_selected_index(Math.min(tasks.length - 1, task_index + 1));
+                            return;
                           }
                           break;
+                        }
+                        default: {
+                          break;
+                        }
+                      }
+                      const current_value = references.current[task_index].value;
+                      const previous_key = current_value.substring(current_value.length - 1);
+                      const key = e.key;
+                      switch (previous_key.concat(key)) {
+                        case ',,': { // Unindent
+                          e.preventDefault();
+                          const updated_task = {
+                            ...task,
+                            depth: Math.max(0, task.depth - 1),
+                            name: current_value.substring(0, current_value.length - 1),
+                          };
+                          const updated_tasks = tasks.slice();
+                          updated_tasks[task_index] = updated_task;
+                          set_tasks(updated_tasks);
+                          return;
+                        }
+                        case '..': { // Indent
+                          if (task_index > 0 && task.depth <= tasks[task_index - 1].depth) {
+                            e.preventDefault();
+                            const updated_task = {
+                              ...task,
+                              depth: Math.min(4, task.depth + 1),
+                              name: current_value.substring(0, current_value.length - 1),
+                            };
+                            const updated_tasks = tasks.slice();
+                            updated_tasks[task_index] = updated_task;
+                            set_tasks(updated_tasks);
+                            return;
+                          }
+                          e.preventDefault();
+                          const updated_task = {
+                            ...task,
+                            name: current_value.substring(0, current_value.length - 1),
+                          };
+                          const updated_tasks = tasks.slice();
+                          updated_tasks[task_index] = updated_task;
+                          set_tasks(updated_tasks);
+                          return;
                         }
                         default: {
                           break;
@@ -333,10 +384,9 @@ export const Tasks = () => {
                       references.current[task_index] = element;
                     }}
                   />
-
                   { task.completed === true && (
                     <div className="text-center text-xs font-normal text-slate-600 whitespace-nowrap">
-                      { `completed ${luxon.DateTime.fromISO(task.completed_date).toRelativeCalendar()}` }
+                      { luxon.DateTime.fromISO(task.completed_date).toRelativeCalendar() }
                     </div>
                   ) }
                   { task.completed === false && subtasks.length > 0 && (
