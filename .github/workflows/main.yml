@@ -19,6 +19,9 @@ jobs:
       - name: npm run client-prod
         run: npm run client-prod
 
+      - name: rm -rf ./web/client/dist/.gitignore
+        run: rm -rf ./web/client/dist/.gitignore
+
       - name: deploy github pages
         if: ${{ github.event_name != 'pull_request' }}
         uses: peaceiris/actions-gh-pages@v3
