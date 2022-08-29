@@ -1,19 +1,5 @@
 // @ts-check
 
-// Tasks (draft)
-// [x] v1: Asana-like layout
-// [x] v1: Indented tasks for sub-tasks
-// [x] v1: LocalStorage
-// [x] v1: Hotkeys
-// [x] v1: Task completion date
-// [x] v1: Task sync across tabls thru window 'storage' events
-// [ ] v2: Task Subtasks expand / collapse
-// [ ] v2: Task phases: Under Review, Planned, In Progress, Completed
-// [ ] v2: Task phases: Backtick toggles forward, Tilde toggles backward
-// [ ] v2: Local data import / export
-// [ ] v2: Cloud data import / export
-// [ ] v2: Publish at tasks.jxyz.me
-
 /**
  * @typedef {import('./Tasks').task} task
  */
