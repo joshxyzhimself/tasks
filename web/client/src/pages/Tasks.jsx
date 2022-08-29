@@ -192,7 +192,6 @@ export const Tasks = () => {
                   </div>
                   <input
                     type="text"
-                    className="task shrink"
                     value={task.name}
                     onFocus={() => {
                       set_focused_index(task_index);
@@ -364,9 +363,15 @@ export const Tasks = () => {
 
         <div className="p-2">
           <div className="p-2 text-left text-base font-normal">
+            Overview
+          </div>
+          <div className="px-2 text-left text-xs font-normal">
+            Task management web app, uses LocalStorage.
+          </div>
+          <div className="p-2 text-left text-base font-normal">
             Usage
           </div>
-          <div className="p-2 flex flex-row justify-start items-center flex-wrap gap-2">
+          <div className="px-2 flex flex-row justify-start items-center flex-wrap gap-2">
             <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
               Enter: add task
             </div>
