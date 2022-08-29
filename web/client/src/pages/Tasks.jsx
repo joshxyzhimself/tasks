@@ -329,49 +329,6 @@ export const Tasks = () => {
                           break;
                         }
                       }
-                      const current_value = references.current[task_index].value;
-                      const previous_key = current_value.substring(current_value.length - 1);
-                      const key = e.key;
-                      switch (previous_key.concat(key)) {
-                        case ',,': { // Unindent
-                          e.preventDefault();
-                          const updated_task = {
-                            ...task,
-                            depth: Math.max(0, task.depth - 1),
-                            name: current_value.substring(0, current_value.length - 1),
-                          };
-                          const updated_tasks = tasks.slice();
-                          updated_tasks[task_index] = updated_task;
-                          set_tasks(updated_tasks);
-                          return;
-                        }
-                        case '..': { // Indent
-                          if (task_index > 0 && task.depth <= tasks[task_index - 1].depth) {
-                            e.preventDefault();
-                            const updated_task = {
-                              ...task,
-                              depth: Math.min(4, task.depth + 1),
-                              name: current_value.substring(0, current_value.length - 1),
-                            };
-                            const updated_tasks = tasks.slice();
-                            updated_tasks[task_index] = updated_task;
-                            set_tasks(updated_tasks);
-                            return;
-                          }
-                          e.preventDefault();
-                          const updated_task = {
-                            ...task,
-                            name: current_value.substring(0, current_value.length - 1),
-                          };
-                          const updated_tasks = tasks.slice();
-                          updated_tasks[task_index] = updated_task;
-                          set_tasks(updated_tasks);
-                          return;
-                        }
-                        default: {
-                          break;
-                        }
-                      }
                     }}
                     onChange={(e) => {
                       const updated_task = { ...task, name: e.target.value };
@@ -414,37 +371,19 @@ export const Tasks = () => {
               Enter: add task
             </div>
             <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Backspace: delete task (if empty)
+              Backspace / Delete: remove task
             </div>
             <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Delete: delete task below (if empty)
+              Tab / Shift Tab: indent / unindent task
             </div>
             <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Tab: indent task
+              Backtick: toggle completion
             </div>
             <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Shift + Tab: unindent task
+              Arrow Up / Down: select above / below
             </div>
             <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Backtick: toggle task completion
-            </div>
-            <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Arrow Up: select task above
-            </div>
-            <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Arrow Down: select task below
-            </div>
-            <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Shift + Arrow Up: switch with task above (if same indention)
-            </div>
-            <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Shift + Arrow Down: switch with task below (if same indention)
-            </div>
-            <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Note: data is saved to / loaded from LocalStorage
-            </div>
-            <div className="p-1 text-left text-xs font-normal bg-slate-800 text-white rounded">
-              Note: data is synced across tabs thru LocalStorage events
+              Shift Arrow Up / Down: switch above / below
             </div>
           </div>
         </div>
